@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: false }));
 
 //Routes
 app.get("/", (req, res) => res.json({ message: "buenas buenas API" }));
-app.use(taskRoutes);
-app.use(authRoutes);
+app.use("/api", taskRoutes);
+app.use("/api", authRoutes);
 
 //Error hander
 app.use((err, req, res, next) => {
