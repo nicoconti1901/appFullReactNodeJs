@@ -1,6 +1,14 @@
 import { pool } from "../db.js";
 
-export const getAllTasks = (req, res) => res.send("Obteniendo tareas");
+export const getAllTasks = async (req, res, next) => {
+  try{
+  const result = await pool.query("SELECT * FROM task");
+  console.log(result);
+  return res.json(result.rows);
+} catch (error){
+  next(error);
+}
+}
 
 export const getTask = (req, res) => res.send("Obteniendo tarea unica");
 
