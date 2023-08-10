@@ -5,8 +5,17 @@ export const getAllTasks = async (req, res, next) => {
   return res.json(result.rows);
 };
 
-export const getTask = (req, res) => res.send("Obteniendo tarea unica");
-
+export const getTask = async (req, res) => {
+  const result = await pool.query("SELECT * FROM task WHERE id = $1", [
+    req.params.id,
+  ]);
+  if (result.rowCount === 0) {
+    return res.status(404).json({
+      message: "La tarea con ese ID no existe",
+    });
+  }
+  return res.json(result.rows[0]);
+};
 export const createTask = async (req, res, next) => {
   const { title, description } = req.body;
 
@@ -21,7 +30,7 @@ export const createTask = async (req, res, next) => {
   } catch (error) {
     if (error.code === "23505") {
       return res.status(409).json({
-        message: "La tarea con ee titulo ya existe"
+        message: "La tarea con ee titulo ya existe",
       });
     }
     next(error);
