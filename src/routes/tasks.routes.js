@@ -6,10 +6,11 @@ import {
   getTask,
   updateTask,
 } from "../controllers/tasks.controller.js";
+import { isAuth } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.get("/tasks", getAllTasks);
+router.get("/tasks", isAuth, getAllTasks);
 
 router.get("/tasks/:id", getTask);
 
