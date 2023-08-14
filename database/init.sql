@@ -4,6 +4,8 @@ CREATE TABLE task(
     description TEXT
 );
 
+ALTER TABLE task ADD COLUMN user_id INTEGER REFERENCES users(id);
+
 CREATE TABLE users(
     id serial PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
@@ -12,4 +14,6 @@ CREATE TABLE users(
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE users ADD COLUMN gravatar VARCHAR(255);
 
