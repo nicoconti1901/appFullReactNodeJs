@@ -1,7 +1,8 @@
 import { pool } from "../db.js";
 
 export const getAllTasks = async (req, res, next) => {
-  const result = await pool.query("SELECT * FROM task");
+  const result = await pool.query("SELECT * FROM task WHERE user_id = $1", [
+    req.userId,]);
   return res.json(result.rows);
 };
 
@@ -17,13 +18,13 @@ export const getTask = async (req, res) => {
   return res.json(result.rows[0]);
 };
 export const createTask = async (req, res, next) => {
-  const { title, description } = req.body;
+  const { title, description,} = req.body;
 
   //DB INSERT
   try {
     const result = await pool.query(
-      "INSERT INTO task (title, description) VALUES ($1, $2) returning *",
-      [title, description]
+      "INSERT INTO task (title, description, user_id) VALUES ($1, $2, $3) returning *",
+      [title, description, req.userId]
     );
 
     res.json(result.rows[0]);
