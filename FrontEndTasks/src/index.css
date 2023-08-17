@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 body{
-  background: black;
+  background: rgb(0, 0, 0);
   color: white;
+}
+
+.button-primary{
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background-color: rgb(48, 118, 210);
+  padding-bottom: 3;
+  padding-top: 3;
+  color: white;
+  border-radius: 0.25rem;
+  width: 50%;
+}
+
+.button-primary:hover{
+  background-color: rgb(20, 79, 156);
+  font-weight: bolder;
 }
