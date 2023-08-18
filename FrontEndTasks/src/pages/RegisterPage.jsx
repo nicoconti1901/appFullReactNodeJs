@@ -1,6 +1,7 @@
 import { Input } from "../components/ui/Input.jsx";
 import { Card } from "../components/ui/Card.jsx";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function RegisterPage() {
   const {
@@ -8,8 +9,13 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+
+  const onSubmit = handleSubmit(async (data) => {
+    const res = await axios.post("http://localhost:3000/api/signup", data,{
+      withCredentials: true,
+    });
+
+    console.log(res);
   });
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center">
@@ -18,7 +24,7 @@ function RegisterPage() {
         <form onSubmit={onSubmit}>
           <Input
             placeholder="Enter your fullname"
-            {...register("name", { required: true })}
+            {...register("username", { required: true })}
           />
           {errors.name && (
             <span className="text-red-500">Name is required</span>
