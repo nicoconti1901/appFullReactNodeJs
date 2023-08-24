@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "caniuse-lite": "^1.0.30001520",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { Input, Card, Label} from '../components/ui';
 import { useForm } from "react-hook-form";
 import { Link,useNavigate } from 'react-router-dom';
@@ -10,16 +11,21 @@ function RegisterPage() {
     formState: { errors },
   } = useForm();
 
-  const {signup} = useAuth();
+  const {signup, errors: signupErrors} = useAuth();
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async (data) => {
-    await signup(data);
+    const user = await signup(data);
+    if(user){
     navigate('/profile');
-    
+    }
   });
   return (
     <div className="h-[calc(100vh-64px)] flex items-center justify-center">
       <Card>
+      {signupErrors &&
+          signupErrors.map((error) => (
+            <p className="text-red-500 text-center">{error}</p>
+          ))}
         <h1>Register Page</h1>
         <form onSubmit={onSubmit}>
           <Label htmlFor="username">Username</Label>
